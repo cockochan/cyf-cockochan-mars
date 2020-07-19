@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Table from "./Table";
+import "./App.css";
 
 function App() {
+  const [satelliteData, setSatelliteData] = useState(null);
+
+  const [firstYear,setFirstYear]=useState(null)
+
+  async function getSatelliteData() {
+    let satelliteJson = await fetch(
+      "https://api.nasa.gov/mars-photos/api/v1/rovers/?api_key=CYFZK0yMFOc4xf2zANKOJXcgXJRp0s65c0RFgFy9"
+    );
+    let properData = await satelliteJson.json();
+
+    setSatelliteData(properData);
+  }
+  useEffect(() => {
+    getSatelliteData();
+  }, []);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {satelliteData ? <Table rovers={satelliteData.rovers}  /> : <div></div>}
     </div>
   );
 }
