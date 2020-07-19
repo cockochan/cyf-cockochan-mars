@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   const [satelliteData, setSatelliteData] = useState(null);
 
-  const [firstYear,setFirstYear]=useState(null)
+
 
   async function getSatelliteData() {
     let satelliteJson = await fetch(

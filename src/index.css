@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.passive{
+  background-color:white;
+}
+.active{
+  background-color:red;
+}
+.allSatsTab{
+  margin-top:5em;
+}

@@ -27,25 +27,27 @@ function Table(props){
   console.log(numYears);
 
   return(
-<table >
+<table className='allSatsTab' >
     <thead>
     {props.rovers.map((rover)=>{
       let cells=[];
-
+     let thisRoverLandingYear = rover.landing_date.slice(0, 4);
+     let thisRoverDeathYear = rover.max_date.slice(0, 4);
+     console.log(rover.landing_date)
+     console.log(thisRoverLandingYear)
+     
+     
     for(let i=0;i<=numYears;i++){
       cells.push(lastYear-i)
     }
       return(<tr><th>{rover.name}</th>
-      {cells.reverse().map(cell=>{return(<th>{cell}</th>)})}
+      {cells.reverse().map(cell=>{let stat
+        if(thisRoverDeathYear>=cell&&cell>=thisRoverLandingYear){stat='active'}else{stat = 'passive';}
+        return(<th className={stat}>{cell}</th>)})}
       </tr>)})}
     
     </thead>
  <tbody>
-   <tr>
-     <td>sat2</td>
-    <td>false</td>
-    <td>true</td>
-    <td>false</td>
-  </tr></tbody>
+  </tbody>
 </table> )}
 export default Table
