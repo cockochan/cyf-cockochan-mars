@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{useState} from 'react';
 import DayPicker from './Datapicker'
 function Table(props){
-  
+  const [clicked,setClicked]=useState(null)
   
   
   
@@ -12,8 +12,9 @@ function Table(props){
   let sortedLandings = allanding.sort();
   const firstYear = sortedLandings[0].slice(0, 4);
 
-
-
+const onShowDate=(event)=>{
+  setClicked(event.target.value)
+}
 
  let allStopped = [];
 
@@ -27,6 +28,8 @@ function Table(props){
   console.log(numYears);
 
   return(
+    <div>
+      {clicked!=null?<DayPicker month={new Date(clicked, 8)} />:<div></div>}
 <table className='allSatsTab' >
     <thead>
     {props.rovers.map((rover)=>{
@@ -43,11 +46,16 @@ function Table(props){
       return(<tr key={rover.name+rover.max_date.slice(0, 4)}><th>{rover.name}</th>
       {cells.reverse().map(cell=>{let stat
         if(thisRoverDeathYear>=cell&&cell>=thisRoverLandingYear){stat='active'}else{stat = 'passive';}
-        return(<th key={rover.name+cell} className={stat}><div>{cell}</div><DayPicker /></th>)})}
+        return(<th><button key={rover.name+cell} value={cell} onClick={onShowDate} className={stat}>{cell}</button></th>)})}
       </tr>)})}
     
     </thead>
  <tbody>
   </tbody>
-</table> )}
+ 
+</table> <div>
+{clicked?<div>{clicked}</div>:<div></div>}
+  {clicked!=null?<DayPicker month={new Date(parseInt(clicked), 8)} />:<div></div>}
+  {clicked?<div>{parseInt(clicked)}</div>:<div></div>}
+ </div></div> )}
 export default Table
