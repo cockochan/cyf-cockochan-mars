@@ -1,5 +1,5 @@
 import React from 'react';
-
+import DayPicker from './Datapicker'
 function Table(props){
   
   
@@ -40,10 +40,10 @@ function Table(props){
     for(let i=0;i<=numYears;i++){
       cells.push(lastYear-i)
     }
-      return(<tr><th>{rover.name}</th>
+      return(<tr key={rover.name+rover.max_date.slice(0, 4)}><th>{rover.name}</th>
       {cells.reverse().map(cell=>{let stat
         if(thisRoverDeathYear>=cell&&cell>=thisRoverLandingYear){stat='active'}else{stat = 'passive';}
-        return(<th className={stat}>{cell}</th>)})}
+        return(<th key={rover.name+cell} className={stat}><div>{cell}</div><DayPicker /></th>)})}
       </tr>)})}
     
     </thead>
