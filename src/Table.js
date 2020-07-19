@@ -25,38 +25,27 @@ function Table(props){
 
   const numYears = lastYear-firstYear;
   console.log(numYears);
-}
+
   return(
 <table >
     <thead>
     {props.rovers.map((rover)=>{
-      
-      let cells=[]
-    for(let i=0;i<=numYears){
-      cells.push()
+      let cells=[];
+
+    for(let i=0;i<=numYears;i++){
+      cells.push(lastYear-i)
     }
       return(<tr><th>{rover.name}</th>
-      {cells}</tr>)
-      })
-    }</thead>
-{/* //  <tbody>
-//   <tr>
-//     <td>sat1</td>
-//     <td>true</td>
-//     <td>true</td>
-//     <td>false</td>
-//   </tr>
-//   <tr>
-//     <td>sat2</td>
-//     <td>false</td>
-//     <td>true</td>
-//     <td>true</td>
-//   </tr>
-//   <tr>
-//     <td>sat2</td>
-//     <td>false</td>
-//     <td>true</td>
-//     <td>false</td>
-//   </tr></tbody> */}
+      {cells.reverse().map(cell=>{return(<th>{cell}</th>)})}
+      </tr>)})}
+    
+    </thead>
+ <tbody>
+   <tr>
+     <td>sat2</td>
+    <td>false</td>
+    <td>true</td>
+    <td>false</td>
+  </tr></tbody>
 </table> )}
 export default Table
