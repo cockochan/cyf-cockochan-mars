@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
+import PhotoDisplay from './PhotoDisplay'
 function Table(props){
   const [clicked,setClicked]=useState(null)
-  
+  const [dayClicked,setDayClicked]=useState(null)
   
   
   let allanding = [];
@@ -18,7 +19,8 @@ const closeCalendar =()=>{
 const onShowDate=(event)=>{
   setClicked(event.target.value)
 }
-const onClickDay = (value, event) => {alert('Clicked day: ', value)}
+const onClickDay = (value, event) => {
+setDayClicked(value)}
  let allStopped = [];
 
   
@@ -57,9 +59,11 @@ const onClickDay = (value, event) => {alert('Clicked day: ', value)}
  
 </table> <div>
 
-  {clicked!=null?<Calendar defaultView="year" onClickDay={onClickDay}	activeStartDate={new Date(parseInt(clicked), 0, 1)} />:<div></div>}
+  {clicked!=null?<Calendar calendarType="ISO 8601"defaultView="year"  onChange={onClickDay}	activeStartDate={new Date(parseInt(clicked), 0, 1)} />:<div></div>}
   
   {clicked?<div><button onClick={closeCalendar}>close calendar</button></div>:<div></div>}
  </div>
+ {dayClicked?<div>{dayClicked.toISOString().substring(0, 10)}</div>:<div></div>}
+ {dayClicked?<PhotoDisplay date = {dayClicked.toISOString().substring(0, 10)}/>:<div></div>}
  </div> )}
 export default Table
