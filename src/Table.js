@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
-import DayPicker from './Datapicker'
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
 function Table(props){
   const [clicked,setClicked]=useState(null)
   
@@ -29,7 +30,7 @@ const onShowDate=(event)=>{
 
   return(
     <div>
-      {clicked!=null?<DayPicker month={new Date(clicked, 8)} />:<div></div>}
+ 
 <table className='allSatsTab' >
     <thead>
     {props.rovers.map((rover)=>{
@@ -55,7 +56,8 @@ const onShowDate=(event)=>{
  
 </table> <div>
 {clicked?<div>{clicked}</div>:<div></div>}
-  {clicked!=null?<DayPicker month={new Date(parseInt(clicked), 8)} />:<div></div>}
+  {clicked!=null?<Calendar minDetail='year'	activeStartDate={new Date(parseInt(clicked), 0, 1)} />:<div></div>}
+  
   {clicked?<div>{parseInt(clicked)}</div>:<div></div>}
  </div></div> )}
 export default Table
