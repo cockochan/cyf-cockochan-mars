@@ -12,7 +12,9 @@ function Table(props){
  
   let sortedLandings = allanding.sort();
   const firstYear = sortedLandings[0].slice(0, 4);
-
+const closeCalendar =()=>{
+  setClicked(null)
+}
 const onShowDate=(event)=>{
   setClicked(event.target.value)
 }
@@ -26,7 +28,7 @@ const onShowDate=(event)=>{
   const lastYear = sortedStops[0].slice(0, 4);
 
   const numYears = lastYear-firstYear;
-  console.log(numYears);
+
 
   return(
     <div>
@@ -37,8 +39,7 @@ const onShowDate=(event)=>{
       let cells=[];
      let thisRoverLandingYear = rover.landing_date.slice(0, 4);
      let thisRoverDeathYear = rover.max_date.slice(0, 4);
-     console.log(rover.landing_date)
-     console.log(thisRoverLandingYear)
+   
      
      
     for(let i=0;i<=numYears;i++){
@@ -55,9 +56,10 @@ const onShowDate=(event)=>{
   </tbody>
  
 </table> <div>
-{clicked?<div>{clicked}</div>:<div></div>}
+
   {clicked!=null?<Calendar minDetail='year'	activeStartDate={new Date(parseInt(clicked), 0, 1)} />:<div></div>}
   
-  {clicked?<div>{parseInt(clicked)}</div>:<div></div>}
- </div></div> )}
+  {clicked?<div><button onClick={closeCalendar}>close calendar</button></div>:<div></div>}
+ </div>
+ </div> )}
 export default Table
