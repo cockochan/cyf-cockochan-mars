@@ -18,7 +18,7 @@ const closeCalendar =()=>{
 const onShowDate=(event)=>{
   setClicked(event.target.value)
 }
-
+const onClickDay = (value, event) => {alert('Clicked day: ', value)}
  let allStopped = [];
 
   
@@ -57,7 +57,7 @@ const onShowDate=(event)=>{
  
 </table> <div>
 
-  {clicked!=null?<Calendar minDetail='year'	activeStartDate={new Date(parseInt(clicked), 0, 1)} />:<div></div>}
+  {clicked!=null?<Calendar defaultView="year" onClickDay={onClickDay}	activeStartDate={new Date(parseInt(clicked), 0, 1)} />:<div></div>}
   
   {clicked?<div><button onClick={closeCalendar}>close calendar</button></div>:<div></div>}
  </div>
