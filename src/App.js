@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
 import "./App.css";
-
+import  './grid.css';
 function App() {
   const [satelliteData, setSatelliteData] = useState(null);
 
@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="container">
       {satelliteData ? (
         <Table rovers={satelliteData.rovers} />
       ) : (

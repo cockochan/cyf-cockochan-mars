@@ -24,7 +24,7 @@ function Table(props) {
   useEffect(
     () =>
       async function getPhotosForThisDate() {
-     
+  
         if(dayClicked){
          
         let photoJson = await fetch(
@@ -33,12 +33,12 @@ function Table(props) {
         let photoData = await photoJson.json();
 
         setPhotosMade(photoData);
-      
+        if(photosMade.photos){console.log(photosMade.photos[0])}
       }},
     [dayClicked !== null ? dayClicked : null]
   );
   let allStopped = [];
-  if(photosMade){console.log(photosMade.photos)}
+  // if(photosMade){console.log(photosMade.photos[0])}
   props.rovers.map((rover) => allStopped.push(rover.max_date));
 
   let sortedStops = allStopped.sort().reverse();
@@ -90,9 +90,9 @@ function Table(props) {
         </thead>
         <tbody></tbody>
       </table>{" "}
-      {photosMade&&photosMade.length>0? <div>vhbmkjvh</div> : <div></div>}
+     { photosMade.photos?<img className='photoDisplay col-6'src={photosMade.photos[0].img_src}/>:<div></div>}
       <div>
-        {clicked != null ? (
+        {clicked !== null ? (
           <Calendar
             calendarType="ISO 8601"
             defaultView="year"
@@ -116,12 +116,6 @@ function Table(props) {
       ) : (
         <div></div>
       )}
- 
-      {/* {dayClicked ? (
-        <PhotoDisplay date={dayClicked.toISOString().substring(0, 10)} />
-      ) : (
-        <div></div>
-      )} */}
     </div>
   );
 }
