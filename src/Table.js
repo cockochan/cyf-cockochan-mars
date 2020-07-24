@@ -5,6 +5,7 @@ import "react-calendar/dist/Calendar.css";
 function Table(props) {
   const [clicked, setClicked] = useState(null);
   const [dayClicked, setDayClicked] = useState(null);
+  const [clickedId,setClickedId]=useState(null)
   const [photosMade, setPhotosMade] = useState({});
   let allanding = [];
 
@@ -16,7 +17,9 @@ function Table(props) {
     setClicked(null);
   };
   const onShowDate = (event) => {
+    setClickedId(event.target.id)
     setClicked(event.target.value);
+    console.log(event.target.id)
   };
   const onClickDay = (value, event) => {
     setDayClicked(value);
@@ -25,10 +28,10 @@ function Table(props) {
     () =>
       async function getPhotosForThisDate() {
   
-        if(dayClicked){
+        if(dayClicked&&clickedId){
          
         let photoJson = await fetch(
-          `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${dayClicked.toISOString().substring(0, 10)}&api_key=CYFZK0yMFOc4xf2zANKOJXcgXJRp0s65c0RFgFy9`
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/${clickedId}/photos?earth_date=${dayClicked.toISOString().substring(0, 10)}&api_key=CYFZK0yMFOc4xf2zANKOJXcgXJRp0s65c0RFgFy9`
         );
         let photoData = await photoJson.json();
 
@@ -74,6 +77,7 @@ function Table(props) {
                   return (
                     <th>
                       <button
+                        id={rover.name}
                         key={rover.name + cell}
                         value={cell}
                         onClick={onShowDate}
