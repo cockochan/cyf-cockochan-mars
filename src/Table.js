@@ -5,7 +5,7 @@ import "react-calendar/dist/Calendar.css";
 function Table(props) {
   const [clicked, setClicked] = useState(null);
   const [dayClicked, setDayClicked] = useState(null);
-  const [photosMade, setPhotosMade] = useState(null);
+  const [photosMade, setPhotosMade] = useState({});
   let allanding = [];
 
   props.rovers.map((rover) => allanding.push(rover.landing_date));
@@ -24,17 +24,21 @@ function Table(props) {
   useEffect(
     () =>
       async function getPhotosForThisDate() {
+     
+        if(dayClicked){
+         
         let photoJson = await fetch(
-          `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${dayClicked}api_key=CYFZK0yMFOc4xf2zANKOJXcgXJRp0s65c0RFgFy9`
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${dayClicked.toISOString().substring(0, 10)}&api_key=CYFZK0yMFOc4xf2zANKOJXcgXJRp0s65c0RFgFy9`
         );
         let photoData = await photoJson.json();
 
         setPhotosMade(photoData);
-      },
+      
+      }},
     [dayClicked !== null ? dayClicked : null]
   );
   let allStopped = [];
-
+  if(photosMade){console.log(photosMade.photos)}
   props.rovers.map((rover) => allStopped.push(rover.max_date));
 
   let sortedStops = allStopped.sort().reverse();
@@ -86,7 +90,7 @@ function Table(props) {
         </thead>
         <tbody></tbody>
       </table>{" "}
-      {photosMade ? <div>{photosMade.toString()}</div> : <div></div>}
+      {photosMade&&photosMade.length>0? <div>vhbmkjvh</div> : <div></div>}
       <div>
         {clicked != null ? (
           <Calendar
@@ -112,6 +116,7 @@ function Table(props) {
       ) : (
         <div></div>
       )}
+ 
       {/* {dayClicked ? (
         <PhotoDisplay date={dayClicked.toISOString().substring(0, 10)} />
       ) : (
