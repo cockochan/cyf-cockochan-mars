@@ -38,7 +38,7 @@ function Table(props) {
     [dayClicked !== null ? dayClicked : null]
   );
   let allStopped = [];
-  // if(photosMade){console.log(photosMade.photos[0])}
+
   props.rovers.map((rover) => allStopped.push(rover.max_date));
 
   let sortedStops = allStopped.sort().reverse();
