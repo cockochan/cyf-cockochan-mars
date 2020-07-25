@@ -19,6 +19,7 @@ function App() {
 
   return (
     <div className="container">
+      <h1>Demo project based on NASA MARS PHOTOS API</h1>
       {satelliteData ? (
         <Table rovers={satelliteData.rovers} />
       ) : (

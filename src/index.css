@@ -15,11 +15,17 @@ code {
   background-color:white;
 }
 .active{
-  background-color:red;
+  background-color:orange;
+}
+.calendarBox{
+  max-height:50vh;
 }
 .allSatsTab{
   margin-top:5em;
 }
 .photoDisplay{
   
+}
+.thumbBlock{
+  max-height:100vh;
 }

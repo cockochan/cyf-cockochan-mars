@@ -99,6 +99,7 @@ function Table(props) {
       </table>{" "}
      
       <div>
+      <div className='row calendarBox'>
         {clicked !== null ? (
           <Calendar
             calendarType="ISO 8601"
@@ -117,11 +118,12 @@ function Table(props) {
         ) : (
           <div></div>
         )}
-        
-        <div className='col-12'>
+        <div className='col-6 thumbBlock'>
           
-        {photosMade.photos?photosMade.photos.map(photo=>{return(<img className='thumb col-1 'src={photo.img_src}/>)}):<div></div>}
-        </div></div>
+          {photosMade.photos?photosMade.photos.map(photo=>{return(<img className='thumb col-2 'src={photo.img_src}/>)}):<div></div>}
+          </div>
+        </div>
+        </div>
         { photosMade.photos?<img className='photoDisplay 'src={photosMade.photos[0].img_src}/>:<div></div>}
       {dayClicked ? (
         <div>{dayClicked.toISOString().substring(0, 10)}</div>
