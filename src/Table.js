@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import PhotoDisplay from "./PhotoDisplay";
 
 function Table(props) {
   const [clicked, setClicked] = useState(null);
   const [dayClicked, setDayClicked] = useState(null);
-  const [clickedId,setClickedId]=useState(null)
+  const [clickedId,setClickedId]=useState()
   const [photosMade, setPhotosMade] = useState({});
   let allanding = [];
 
@@ -17,11 +18,13 @@ function Table(props) {
     setClicked(null);
   };
   const onShowDate = (event) => {
+
     setClickedId(event.target.id)
     setClicked(event.target.value);
     console.log(event.target.id)
   };
   const onClickDay = (value, event) => {
+  
     setDayClicked(value);
   };
   useEffect(
@@ -38,7 +41,7 @@ function Table(props) {
         setPhotosMade(photoData);
         if(photosMade.photos){console.log(photosMade.photos[0])}
       }},
-    [dayClicked !== null ? dayClicked : null]
+    [dayClicked]
   );
   let allStopped = [];
 
@@ -94,7 +97,7 @@ function Table(props) {
         </thead>
         <tbody></tbody>
       </table>{" "}
-     { photosMade.photos?<img className='photoDisplay col-6'src={photosMade.photos[0].img_src}/>:<div></div>}
+     
       <div>
         {clicked !== null ? (
           <Calendar
@@ -114,12 +117,18 @@ function Table(props) {
         ) : (
           <div></div>
         )}
-      </div>
+        
+        <div className='col-12'>
+          
+        {photosMade.photos?photosMade.photos.map(photo=>{return(<img className='thumb col-1 'src={photo.img_src}/>)}):<div></div>}
+        </div></div>
+        { photosMade.photos?<img className='photoDisplay 'src={photosMade.photos[0].img_src}/>:<div></div>}
       {dayClicked ? (
         <div>{dayClicked.toISOString().substring(0, 10)}</div>
       ) : (
         <div></div>
       )}
+     {/* {clickedId?<PhotoDisplay dayClicked={dayClicked} rName={clickedId}/>:<div></div>} */}
     </div>
   );
 }
