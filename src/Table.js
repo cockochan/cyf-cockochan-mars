@@ -9,7 +9,7 @@ function Table(props) {
   const [clickedId,setClickedId]=useState()
   const [photosMade, setPhotosMade] = useState({});
   const [camera, setCamera]=useState('FHAZ')
-  const [hero, setHero]=useState();
+  const [hero, setHero]=useState(null);
   let allanding = [];
 
   props.rovers.map((rover) => allanding.push(rover.landing_date));
@@ -47,6 +47,12 @@ function Table(props) {
       }},
     [dayClicked]
   );
+  const setHeroSrc =(event)=>{
+    event.preventDefault();
+    console.log(event.target.src)
+    setHero(event.target.src)
+  }
+  if(hero){console.log(hero)}
   let allStopped = [];
 
   props.rovers.map((rover) => allStopped.push(rover.max_date));
@@ -103,7 +109,7 @@ function Table(props) {
       </table>{" "}
      
       <div>
-      <div className='row calendarBox'>
+      <div className='row'>
         {clicked !== null ? (
           <Calendar
             calendarType="ISO 8601"
@@ -123,12 +129,12 @@ function Table(props) {
           <div></div>
         )}
         <div className='col-6 thumbBlock'>
-          
-          {photosMade.photos?photosMade.photos.map(photo=>{return(<img onClick={setHero} value={photo.img_src} className='thumb col-2'src={photo.img_src}/>)}):<div></div>}
+        { hero?<img  className='photoDisplay 'src={hero}/>:<div></div>}
+          {photosMade.photos?photosMade.photos.map(photo=>{return(<img onClick={setHeroSrc} value={photo.img_src} className='thumb col-2'src={photo.img_src}/>)}):<div></div>}
           </div>
         </div>
         </div>
-        { hero?<img  className='photoDisplay 'src={hero}/>:<div></div>}
+       
       {dayClicked ? (
         <div>{dayClicked.toISOString().substring(0, 10)}</div>
       ) : (
