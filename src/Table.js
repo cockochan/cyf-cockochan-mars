@@ -37,7 +37,10 @@ function Table(props) {
         let photoJson = await fetch(
           `https://api.nasa.gov/mars-photos/api/v1/rovers/${clickedId}/photos?earth_date=${dayClicked
             .toISOString()
-            .substring(0, 10)}&api_key=CYFZK0yMFOc4xf2zANKOJXcgXJRp0s65c0RFgFy9`
+            .substring(
+              0,
+              10
+            )}&camera=${camera.toLowerCase()}&api_key=CYFZK0yMFOc4xf2zANKOJXcgXJRp0s65c0RFgFy9`
         );
         let photoData = await photoJson.json();
 
@@ -69,6 +72,10 @@ function Table(props) {
 
   return (
     <div>
+      <h2>
+        showing <strong>{camera}</strong> camera
+      </h2>
+      <h3>you can choose cameras using buttons next to rover name</h3>
       <table className="allSatsTab">
         <thead>
           {props.rovers.map((rover) => {
