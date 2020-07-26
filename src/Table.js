@@ -27,6 +27,7 @@ function Table(props) {
     console.log(event.target.id);
   };
   const onClickDay = (value, event) => {
+    setHero(null);
     setDayClicked(value);
   };
   useEffect(() => {
@@ -51,7 +52,7 @@ function Table(props) {
       }
     }
     getPhotosForThisDate();
-  }, [dayClicked]);
+  }, [dayClicked, camera]);
   // https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2020-01-01&camera=fhaz&api_key=CYFZK0yMFOc4xf2zANKOJXcgXJRp0s65c0RFgFy9
   const setHeroSrc = (event) => {
     event.preventDefault();
@@ -90,21 +91,26 @@ function Table(props) {
               <tr key={rover.name + rover.max_date.slice(0, 4)}>
                 <th>
                   {rover.name}
-                  {rover.cameras.map((camera) => (
-                    <button value={camera.name} onClick={setCam}>
-                      {camera.name}
-                    </button>
-                  ))}
+                  <select onClick={setCam}>
+                    {rover.cameras.map((camera) => (
+                      <option value={camera.name} onClick={setCam}>
+                        {camera.name}
+                      </option>
+                    ))}{" "}
+                  </select>
                 </th>
                 {cells.reverse().map((cell) => {
                   let stat;
+                  let disable;
                   if (
                     thisRoverDeathYear >= cell &&
                     cell >= thisRoverLandingYear
                   ) {
                     stat = "active";
+                    disable = false;
                   } else {
                     stat = "passive";
+                    disable = true;
                   }
                   return (
                     <th>
@@ -114,6 +120,7 @@ function Table(props) {
                         value={cell}
                         onClick={onShowDate}
                         className={stat}
+                        disabled={disable}
                       >
                         {cell}
                       </button>
@@ -141,7 +148,9 @@ function Table(props) {
 
           {clicked ? (
             <div>
-              <button onClick={closeCalendar}>close calendar</button>
+              <button onClick={closeCalendar} className="closeButton">
+                x
+              </button>
             </div>
           ) : (
             <div></div>
@@ -160,13 +169,19 @@ function Table(props) {
                 );
               })
             ) : (
-              <div></div>
+              <div>
+                *if you dont see anything after a couple of seconds,try another
+                camera.
+              </div>
             )}
           </div>
         </div>
       </div>
       {dayClicked ? (
-        <div>{dayClicked.toISOString().substring(0, 10)}</div>
+        <div>
+          selected date:{" "}
+          <strong>{dayClicked.toISOString().substring(0, 10)}</strong>
+        </div>
       ) : (
         <div></div>
       )}

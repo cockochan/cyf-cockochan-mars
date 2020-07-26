@@ -24,7 +24,7 @@ function App() {
       {satelliteData ? (
         <Table rovers={satelliteData.rovers} />
       ) : (
-        <div>thisisnotwhatiwant</div>
+        <div>wait a second...</div>
       )}
     </div>
   );
