@@ -170,8 +170,8 @@ function Table(props) {
               })
             ) : (
               <div>
-                *if you dont see anything after a couple of seconds,try another
-                camera.
+                *not all the cameras deliver pictures avery day. If you dont see
+                anything after a couple of seconds,try another camera.
               </div>
             )}
           </div>
